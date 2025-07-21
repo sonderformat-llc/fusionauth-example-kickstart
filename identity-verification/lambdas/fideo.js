@@ -77,7 +77,7 @@ function getAPIKey() {
 // end::getapikey
 
 // tag::registrationfailfetch
-function trackRegistrationFailed(email) {
+function trackRegistrationFailedFetch(email) {
   var response = fetch("http://example.com/trackregistrationfail", {
     method: "POST",
     headers: {
@@ -96,7 +96,7 @@ function trackRegistrationFailed(email) {
 // end::registrationfailfetch
 
 // tag::registrationfaillog
-function trackRegistrationFailed(email) {
+function trackRegistrationFailedEventLog(email) {
   var LOG_PREFIX = 'fideo-registration-failed ';
   console.log(LOG_PREFIX + email);
 }
