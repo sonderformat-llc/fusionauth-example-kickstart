@@ -1,4 +1,5 @@
 {
+  "licenseId": "REPLACE_LICENSE_KEY",
   "variables": {
     "allowedOrigin": "http://localhost:4200",
     "authorizedRedirectURL": "http://localhost:4200",
@@ -8,13 +9,15 @@
     "applicationId": "e9fdb985-9173-4e01-9d73-ac2d60d1dc8e",
     "apiKey": "this_really_should_be_a_long_random_alphanumeric_value_but_this_still_works",
     "asymmetricKeyId": "#{UUID()}",
-    "newThemeId": "#{UUID()}",
     "defaultTenantId": "d7d09513-a3f5-401c-9685-34ab6c552453",
     "adminEmail": "admin@example.com",
     "adminPassword": "password",
     "userEmail": "richard@example.com",
     "userPassword": "password",
-    "userUserId": "00000000-0000-0000-0000-111111111111"
+    "userUserId": "00000000-0000-0000-0000-111111111111",
+    "emailVerificationFormId": "#{UUID()}",
+    "emailFieldId": "#{UUID()}",
+    "passwordFieldId": "#{UUID()}"
   },
   "apiKeys": [
     {
@@ -321,7 +324,7 @@
     },
     {
       "method": "PATCH",
-      "url": "api/system-configuration",
+      "url": "/api/system-configuration",
       "body": {
         "systemConfiguration": {
           "corsConfiguration": {
@@ -366,8 +369,64 @@
           "emailConfiguration": {
             "defaultFromEmail": "no-reply@example.com",
             "host": "mailpit",
-            "port": 1025
+            "port": 1025,
+            "unverified": {
+              "behavior": "Gated"
+            },
+            "verifyEmail": true,
+            "verificationEmailTemplateId": "7fa81426-42a9-4eb2-ac09-73c044d410b1"
           }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/form/field/#{emailFieldId}",
+      "body": {
+        "field": {
+          "name": "Email Verification - Email Address",
+          "key": "user.email",
+          "type": "email",
+          "required": true,
+          "control": "text"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/form/field/#{passwordFieldId}",
+      "body": {
+        "field": {
+          "name": "Email Verification - Password",
+          "key": "user.password",
+          "type": "string",
+          "required": true,
+          "control": "password"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/form/#{emailVerificationFormId}",
+      "body": {
+        "form": {
+          "name": "Email Verification",
+          "steps": [
+            {
+              "fields": [
+                "#{emailFieldId}"
+              ]
+            },
+            {
+              "type": "verifyEmail"
+            },
+            {
+              "fields": [
+                "#{passwordFieldId}"
+              ]
+            }
+          ],
+          "type": "registration"
         }
       }
     },
@@ -402,7 +461,10 @@
             "idTokenKeyId": "#{asymmetricKeyId}"
           },
           "registrationConfiguration": {
-            "enabled": true
+            "enabled": true,
+            "formId": "#{emailVerificationFormId}",
+            "type": "advanced",
+            "loginIdType": "email"
           }
         }
       }
@@ -420,15 +482,6 @@
         },
         "registration": {
           "applicationId": "#{applicationId}"
-        }
-      }
-    },
-    {
-      "method": "PATCH",
-      "url": "/api/tenant/#{defaultTenantId}",
-      "body": {
-        "tenant": {
-          "themeId": "#{newThemeId}"
         }
       }
     }
