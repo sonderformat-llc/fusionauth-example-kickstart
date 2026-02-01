@@ -371,9 +371,11 @@
             "host": "mailpit",
             "port": 1025,
             "unverified": {
-              "behavior": "Gated"
+              "behavior": "Gated",
+              "allowEmailChangeWhenGated": true
             },
             "verifyEmail": true,
+            "verifyEmailWhenChanged": true,
             "verificationEmailTemplateId": "7fa81426-42a9-4eb2-ac09-73c044d410b1"
           }
         }
@@ -482,7 +484,8 @@
         },
         "registration": {
           "applicationId": "#{applicationId}"
-        }
+        },
+        "skipVerification": true
       }
     }
   ]
