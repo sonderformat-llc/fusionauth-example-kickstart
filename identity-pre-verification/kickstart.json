@@ -323,28 +323,6 @@
       }
     },
     {
-      "method": "PATCH",
-      "url": "/api/system-configuration",
-      "body": {
-        "systemConfiguration": {
-          "corsConfiguration": {
-            "allowCredentials": true,
-            "allowedMethods": [
-              "GET",
-              "POST",
-              "OPTIONS"
-            ],
-            "allowedOrigins": [
-              "#{allowedOrigin}"
-            ],
-            "debug": false,
-            "enabled": true,
-            "preflightMaxAgeInSeconds": 0
-          }
-        }
-      }
-    },
-    {
       "method": "POST",
       "url": "/api/user/registration",
       "body": {
@@ -386,7 +364,7 @@
       "url": "/api/form/field/#{emailFieldId}",
       "body": {
         "field": {
-          "name": "Email Verification - Email Address",
+          "name": "Email Identity Pre-Verification - Email Address",
           "key": "user.email",
           "type": "email",
           "required": true,
@@ -399,7 +377,7 @@
       "url": "/api/form/field/#{passwordFieldId}",
       "body": {
         "field": {
-          "name": "Email Verification - Password",
+          "name": "Email Identity Pre-Verification - Password",
           "key": "user.password",
           "type": "string",
           "required": true,
@@ -412,7 +390,7 @@
       "url": "/api/form/#{emailVerificationFormId}",
       "body": {
         "form": {
-          "name": "Email Verification",
+          "name": "Email Identity Pre-Verification",
           "steps": [
             {
               "fields": [
@@ -438,7 +416,7 @@
       "tenantId": "#{defaultTenantId}",
       "body": {
         "application": {
-          "name": "Example app",
+          "name": "Example Application - Identity Pre-Verification",
           "oauthConfiguration": {
             "authorizedRedirectURLs": [
               "#{authorizedPostLogoutURL}",
