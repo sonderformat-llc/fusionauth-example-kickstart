@@ -364,7 +364,7 @@
       "url": "/api/form/field/#{emailFieldId}",
       "body": {
         "field": {
-          "name": "Email Identity Pre-Verification - Email Address",
+          "name": "Identity Pre-Verification - Email Address Field Example",
           "key": "user.email",
           "type": "email",
           "required": true,
@@ -377,7 +377,7 @@
       "url": "/api/form/field/#{passwordFieldId}",
       "body": {
         "field": {
-          "name": "Email Identity Pre-Verification - Password",
+          "name": "Identity Pre-Verification - Password Field Example",
           "key": "user.password",
           "type": "string",
           "required": true,
@@ -390,7 +390,7 @@
       "url": "/api/form/#{emailVerificationFormId}",
       "body": {
         "form": {
-          "name": "Email Identity Pre-Verification",
+          "name": "Identity Pre-Verification - Email Form Example",
           "steps": [
             {
               "fields": [
@@ -416,7 +416,7 @@
       "tenantId": "#{defaultTenantId}",
       "body": {
         "application": {
-          "name": "Example Application - Identity Pre-Verification",
+          "name": "Identity Pre-Verification - Application Example",
           "oauthConfiguration": {
             "authorizedRedirectURLs": [
               "#{authorizedPostLogoutURL}",
